@@ -69,7 +69,7 @@ summarise_pbp <- function(tib) {
       long_rally_pct = long_rally_win/long_rally_total,
       intentional_approaches_pct = intentional_approaches_total/(intentional_approaches_total+reactive_approaches_total),
       reactive_approaches_pct = reactive_approaches_total/(intentional_approaches_total+reactive_approaches_total),
-      approaches_win_pct = approaches_win/(intentional_approaches_total+reactive_approaches_total),
+      approaches_win_pct = approaches_win/approaches_total,
       points_per_match = points/matches,
       ## TODO: Calculate rest of proportions
     )
