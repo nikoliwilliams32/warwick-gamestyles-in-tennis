@@ -1,4 +1,4 @@
-source("R/packages.R", local = TRUE)
+source("D:/OneDrive/University/Y4/Disertation/Data/R/packages.R", local = TRUE)
 
 
 #' Summarise PBP file into key metrics per player per game style
@@ -20,6 +20,7 @@ summarise_pbp <- function(tib) {
       `Player Game Style`
     ) %>% summarise(
       matches = length(unique(`Match ID`)),
+      points = length(unique(`Point ID`)),
       serve_total = sum(if_else(Serving == 1, 1, 0)),
       serve_1_in = sum(if_else(Serving == 1 & Serve == "First Serve In", 1, 0)),
       serve_1_win = sum(if_else(Serving == 1 & Serve == "First Serve In" & PointWon == 1, 1, 0)),
@@ -54,7 +55,22 @@ summarise_pbp <- function(tib) {
     ) %>% mutate(
       serve_1_in_pct = serve_1_in / serve_total,
       serve_1_win_pct = serve_1_win / serve_1_in,
-      serve_2_win_pct = serve_2_win / (serve_total - serve_1_in)
+      serve_2_win_pct = serve_2_win / (serve_total - serve_1_in),
+      return_1_win_pct = return_1_win / return_total,
+      return_2_win_pct = return_2_win / return_total,
+      break_point_win_pct = break_point_win / break_point_total,
+      winners_pct = winners_total/shots_total,
+      forced_errors_pct = forced_errors_total/shots_total,
+      unforced_errors_pct = unforced_errors_total/shots_total,
+      return_errors_pct = return_errors_total/shots_total,
+      return_errors_pct = return_errors_total/shots_total,
+      short_rally_pct = short_rally_win/short_rally_total,
+      medium_rally_pct = medium_rally_win/medium_rally_total,
+      long_rally_pct = long_rally_win/long_rally_total,
+      intentional_approaches_pct = intentional_approaches_total/(intentional_approaches_total+reactive_approaches_total),
+      reactive_approaches_pct = reactive_approaches_total/(intentional_approaches_total+reactive_approaches_total),
+      approaches_win_pct = approaches_win/(intentional_approaches_total+reactive_approaches_total),
+      points_per_match = points/matches,
       ## TODO: Calculate rest of proportions
     )
   )
